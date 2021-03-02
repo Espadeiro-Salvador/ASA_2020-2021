@@ -1,22 +1,26 @@
 #include <cstdio>
 #include <vector>
-
-int people = 0;
-int relations = 0;
+#include <map>
 
 void printHistograma(std::vector<std::vector<int>> graph, int hist) {
-    int histograma[people] = {0};
-    for (int i = 0; i < people; ++i) {
-        histograma[graph[i].size()]++;
+    std::map<int, int> histograma;
+    int max = 0;
+    for (int i = 0; i < graph.size(); ++i) {
+        int n = graph[i].size();
+        if (n > max) max = n;
+        histograma[n]++;
     }
-
+    
     std::printf("Histograma %d\n", hist);
-    for (int i = 0; i < people; i++) {
+    for (int i = 0; i < max; i++) {
         std::printf("%d\n", histograma[i]);
     }
 }
 
 int main() {
+    int people = 0;
+    int relations = 0;
+
     std::scanf("%d,%d", &people, &relations);
     std::vector<std::vector<int>> graph1(people);
     std::vector<std::vector<int>> graph2(people);
