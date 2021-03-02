@@ -18,8 +18,8 @@ void printHistograma(std::vector<int> *graph, int hist) {
 
 int main() {
     std::scanf("%d,%d", &people, &relations);
-    std::vector<int> graph1[people];
-    std::vector<int> graph2[people];
+    std::vector<std::vector<int>> graph1(people);
+    std::vector<std::vector<int>> graph2(people);
 
     for (int i = 0; i < relations; ++i) {
         int p1, p2;
