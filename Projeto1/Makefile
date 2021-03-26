@@ -1,6 +1,6 @@
 all: a.out randomDAG
 
-a.out:
+a.out: main.cpp
 	g++ -std=c++11 -O3 -Wall main.cpp -lm
 
 randomDAG: randomDAG.cpp
