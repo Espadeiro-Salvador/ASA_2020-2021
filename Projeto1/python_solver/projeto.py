@@ -1,10 +1,10 @@
-class Graph:
-    class Node:
+class Node:
         def __init__(self, ident):
             self.source = True
             self.visited = False
             self.maxPath = 1
 
+class Graph:
     def __init__(self, V):
         self.graph = [[] for i in range(V)]
         self.vertexes = [Node(i) for i in range(1,V+1)]
