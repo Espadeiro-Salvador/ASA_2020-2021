@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 #include <stack>
+#include <stdlib.h>
 
 struct Node {
     bool isSource = true;
@@ -24,10 +25,10 @@ void exploreFromVertex(int vertex) {
         vertexes[v].visited = true;
         
         bool closed = true;
-        for (int i = 0; i < graph[v].size(); i++) {
-            if (!vertexes[graph[v][i]].visited) {
+        for (auto &child : graph[v]) {
+            if (!vertexes[child].visited) {
                 closed = false;
-                stack.push(graph[v][i]);
+                stack.push(child);
             }
         }
         
@@ -50,13 +51,17 @@ void getTopologicalOrder() {
 
 /* Θ(E) ou Θ(V+E) */
 void processInput() {
-    std::scanf("%d %d", &V, &E);
+    if (std::scanf("%d %d", &V, &E) == -1) {
+        exit(-1);
+    }
     graph = std::vector<std::vector<int>>(V, std::vector<int>());
     vertexes = std::vector<Node>(V);
 
     for (int i = 0; i < E; i++) {
         int from, to;
-        std::scanf("%d %d", &from, &to);
+        if (std::scanf("%d %d", &from, &to) == -1) {
+            exit(-1);
+        }
         graph[from - 1].push_back(to - 1);
         vertexes[to - 1].isSource = false;
     }
@@ -70,16 +75,16 @@ int main() {
     int numberSources = 0;
     
     // O(V+E)
-    for (auto i : topological) {
-        if (vertexes[i].isSource) {
+    for (auto &vertex : topological) {
+        if (vertexes[vertex].isSource) {
             numberSources++;
         }
 
-        for (int j = 0; j < graph[i].size(); j++) {
-            if (vertexes[i].maxPath + 1 > vertexes[graph[i][j]].maxPath) {
-                vertexes[graph[i][j]].maxPath = vertexes[i].maxPath + 1;
-                if (maxPath < vertexes[graph[i][j]].maxPath) {
-                    maxPath = vertexes[graph[i][j]].maxPath;
+        for (auto &child : graph[vertex]) {
+            if (vertexes[vertex].maxPath + 1 > vertexes[child].maxPath) {
+                vertexes[child].maxPath = vertexes[vertex].maxPath + 1;
+                if (maxPath < vertexes[child].maxPath) {
+                    maxPath = vertexes[child].maxPath;
                 }
             }
         }

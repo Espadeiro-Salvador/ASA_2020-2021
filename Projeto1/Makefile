@@ -5,3 +5,6 @@ a.out: main.cpp
 
 randomDAG: randomDAG.cpp
 	g++ -O3 -Wall -o randomDAG randomDAG.cpp -lm
+
+clean:
+	rm a.out randomDAG
