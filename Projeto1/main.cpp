@@ -1,8 +1,8 @@
 #include <cstdio>
+#include <cstdlib>
 #include <vector>
 #include <list>
 #include <stack>
-#include <stdlib.h>
 
 struct Node {
     bool isSource = true;
@@ -51,17 +51,19 @@ void getTopologicalOrder() {
 
 /* Θ(E) ou Θ(V+E) */
 void processInput() {
-    if (std::scanf("%d %d", &V, &E) == -1) {
-        exit(-1);
+    if (std::scanf("%d %d", &V, &E) < 0) {
+        std::exit(-1);
     }
+    
     graph = std::vector<std::vector<int>>(V, std::vector<int>());
     vertexes = std::vector<Node>(V);
 
     for (int i = 0; i < E; i++) {
         int from, to;
-        if (std::scanf("%d %d", &from, &to) == -1) {
-            exit(-1);
+        if (std::scanf("%d %d", &from, &to) < 0) {
+            std::exit(-1);
         }
+
         graph[from - 1].push_back(to - 1);
         vertexes[to - 1].isSource = false;
     }
